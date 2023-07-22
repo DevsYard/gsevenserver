@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 exports.middlewareGlobal = (req, res, next) => {
 	res.locals.localVariable = 'Valor da variavel local.';
 	// console.log('req.csrfToken pelo csrfMiddleware: ', req.csrfToken());
@@ -37,4 +39,15 @@ exports.isAuthenticated = (req, res, next) => {
 		alert('Área logada!');
 		res.status(401).json({ message: 'Não autorizado' });
 	}
+};
+
+exports.cryptograph = (req, res, next) => {
+	const saltRounds = 10;
+	let password = req.body.password;
+	bcrypt.genSalt(saltRounds, function (err, salt) {
+		bcrypt.hash(password, salt, function (err, hash) {
+			console.log(hash);
+		});
+	});
+	next();
 };
