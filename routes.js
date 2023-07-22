@@ -14,7 +14,7 @@ route.post('/signin', signinController.signin);
 route.get('/users', usersController.users);
 
 route.get('/products', productsController.showProducts);
-route.post('/products', productsController.newProducts);
+route.post('/products', productsController.createProduct);
 
 
 module.exports = route

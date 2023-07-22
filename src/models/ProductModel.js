@@ -7,6 +7,7 @@ const CreateProductSchema = new mongoose.Schema({
 	promo: { type: Boolean },
 	promoPrice: { type: Number },
 	condition: { type: Number },
+	img: { type: String },
 });
 
 const ProductModel = mongoose.model('Products', CreateProductSchema);
