@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const CreateAccountSchema = new mongoose.Schema({
 	username: { type: String, required: true },
@@ -6,6 +6,6 @@ const CreateAccountSchema = new mongoose.Schema({
 	admin: { type: Boolean, required: true },
 });
 
-const CreateAccountModel = mongoose.model('CreateAccount', CreateAccountSchema)
+const AccountModel = mongoose.model('UsersAccount', CreateAccountSchema);
 
-module.exports = CreateAccountModel
+module.exports = AccountModel;
