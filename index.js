@@ -25,7 +25,7 @@ const fs = require('fs');
 const routes = require('./routes');
 
 // const helmet = require('helmet');
-const Tokens = require('csrf');
+// const Tokens = require('csrf');
 
 const { middlewareGlobal } = require('./src/middlewares/middlewareGlobal');
 
@@ -63,7 +63,7 @@ const config = session({
 app.use(config);
 // app.use(flash());
 
-app.use(middlewareGlobal);
+// app.use(middlewareGlobal);	
 
 app.use(routes);
 
