@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
 		const newAccount = await AccountModel.create(newUser);
 		res.status(201).json({ msg: 'Usuário criado com sucesso.' });
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).send({ Erro: '3StzZb', msg: error.message });
 	}
 };
 

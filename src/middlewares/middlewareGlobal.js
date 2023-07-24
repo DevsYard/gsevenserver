@@ -1,9 +1,26 @@
+const AccountModel = require('../models/AccountModel');
 const bcrypt = require('bcrypt');
 
 exports.middlewareGlobal = (req, res, next) => {
 	res.locals.localVariable = 'Valor da variavel local.';
 	// console.log('req.csrfToken pelo csrfMiddleware: ', req.csrfToken());
 	// res.locals.csrfToken = req.csrfToken();
+	next();
+};
+
+exports.userSession = async (req, res, next) => {
+	try {
+		const username = req.body.username;
+		const userInfo = await AccountModel.findOne({ username }).exec();
+		const response = {
+			id: userInfo._id,
+			admin: userInfo.admin,
+		};
+		res.json(response);
+	} catch (err) {
+		res.status(500).json({ Erro: 'iyrooh', message: err.message });
+	}
+
 	next();
 };
 
