@@ -2,9 +2,11 @@ const AccountModel = require('../models/AccountModel');
 const bcrypt = require('bcrypt');
 
 exports.middlewareGlobal = (req, res, next) => {
-	res.locals.localVariable = 'Valor da variavel local.';
-	// console.log('req.csrfToken pelo csrfMiddleware: ', req.csrfToken());
-	// res.locals.csrfToken = req.csrfToken();
+	try {
+		userInfo.id ? res.status(200) : res.status(401);
+	} catch (err) {
+		res.status(500).json({ Errp: 'QRlID0', message: err.message });
+	}
 	next();
 };
 

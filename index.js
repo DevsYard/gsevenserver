@@ -63,7 +63,7 @@ const config = session({
 app.use(config);
 // app.use(flash());
 
-app.use(middlewareGlobal);	
+// app.use(middlewareGlobal);	
 
 app.use(routes);
 
