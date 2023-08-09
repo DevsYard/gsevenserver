@@ -5,18 +5,19 @@ const signupController = require('./src/controllers/signupController');
 const usersController = require('./src/controllers/usersController');
 const productsController = require('./src/controllers/productsController');
 const {
+	middlewareGlobal,
 	isAuthenticated,
 	userSession,
 } = require('./src/middlewares/middlewareGlobal');
 
 route.post('/signup', signupController.signup);
 
-route.post('/signin', userSession, signinController.signin);
+route.post('/signin', signinController.signin);
 // route.get('/signin/:id', signinController.signinById);
 
 // route.get('/users', usersController.users);
 
-// route.get('/products', productsController.showProducts);
+route.get('/products', productsController.showProducts);
 route.post('/products', productsController.createProduct);
 
 
