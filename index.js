@@ -25,7 +25,7 @@ const fs = require('fs');
 const routes = require('./routes');
 
 // const helmet = require('helmet');
-// const Tokens = require('csrf');
+const jwt = require('jsonwebtoken');
 
 const { middlewareGlobal } = require('./src/middlewares/middlewareGlobal');
 
@@ -40,14 +40,9 @@ app.use(
 	})
 );
 
-// app.use(Tokens);
-
-// const tokens = new Tokens();
-// const secret = tokens.secretSync();
-// const token = tokens.create(secret);
-
 const config = session({
 	name: 'appgate7',
+	// secret: token,
 	secret: 'as#RfR3ve¨%64¨jhGF3f4bvc3fb',
 	store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
 	resave: true,
