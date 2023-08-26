@@ -64,6 +64,8 @@ app.use(routes);
 
 app.on('done', () => {
 	app.listen(3001, () => {
-		console.log('Rodando em http://localhost:3001');
+		console.log(
+			'Rodando em https://gsevenserver-d3e65ic7d-gate7.vercel.app:3001'
+		);
 	});
 });
