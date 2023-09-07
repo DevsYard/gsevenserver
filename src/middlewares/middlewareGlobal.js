@@ -1,11 +1,17 @@
 const AccountModel = require('../models/AccountModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.middlewareGlobal = (req, res, next) => {
+exports.middlewareGlobal = async(req, res, next) => {
 	try {
-		userInfo.id ? res.status(200) : res.status(401);
+		const username = req.body.username;
+		const userInfo = await AccountModel.findOne({ username }).exec();
+		token = jwt.sign({ userId: req.userId }, '_GaTe5evEn-eNTErpr1ze_', {
+			expiresIn: 300,
+		});
+		userInfo.id ? res.status(200).json({token: token, message: "Parece ok"}) : res.status(401);
 	} catch (err) {
-		res.status(500).json({ Errp: 'QRlID0', message: err.message });
+		res.status(500).json({ Erro: 'QRlID0', message: err.message });
 	}
 	next();
 };
@@ -17,8 +23,11 @@ exports.userSession = async (req, res, next) => {
 		const response = {
 			id: userInfo._id,
 			admin: userInfo.admin,
+			session: req.sessionID
 		};
-		res.json(response);
+
+		console.log(response)
+		res.json({res: response});
 	} catch (err) {
 		res.status(500).json({ Erro: 'iyrooh', message: err.message });
 	}

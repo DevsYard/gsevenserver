@@ -10,7 +10,7 @@ const {
 	userSession,
 } = require('./src/middlewares/middlewareGlobal');
 
-route.post('/signup', signupController.signup);
+route.post('/signup', userSession, signupController.signup);
 
 route.post('/signin', signinController.signin);
 // route.get('/signin/:id', signinController.signinById);

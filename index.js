@@ -18,25 +18,32 @@ mongoose
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-// const flash = require('connect-flash');
+const flash = require('connect-flash');
 const cors = require('cors');
-const https = require('https');
-const fs = require('fs');
 const routes = require('./routes');
 
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 
 const { middlewareGlobal } = require('./src/middlewares/middlewareGlobal');
 
-// app.use(helmet());
+app.use(helmet(
+	{
+    	contentSecurityPolicy: false,
+		crossOriginEmbedderPolicy: true,
+		referrerPolicy: {policy: ['origin', 'same-origin']}
+  	}
+));
+
+const url = 'http://localhost:3000'
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
 	cors({
 		credentials: true,
-		origin: 'http://localhost:3000',
+		origin: url,
+		optionsSuccessStatus: 204
 	})
 );
 
@@ -48,6 +55,7 @@ const config = session({
 	resave: true,
 	saveUninitialized: true,
 	cookie: {
+		path: '/',
 		secure: false,
 		maxAge: 1000 * 60 * 60 * 24,
 		httpOnly: true,
@@ -65,7 +73,7 @@ app.use(routes);
 app.on('done', () => {
 	app.listen(3001, () => {
 		console.log(
-			'Rodando em https://gsevenserver-d3e65ic7d-gate7.vercel.app:3001'
+			'Rodando em https://localhost:3001'
 		);
 	});
 });
