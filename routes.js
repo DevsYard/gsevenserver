@@ -6,18 +6,18 @@ const usersController = require('./src/controllers/usersController');
 const productsController = require('./src/controllers/productsController');
 const {
 	middlewareGlobal,
-	isAuthenticated,
 	userSession,
+	userInfo,
 } = require('./src/middlewares/middlewareGlobal');
 
-route.post('/signup', userSession, signupController.signup);
+route.post('/signup', signupController.signup);
 
-route.post('/signin', signinController.signin);
-// route.get('/signin/:id', signinController.signinById);
+route.post('/signin', userSession, signinController.signin);
 
-// route.get('/users', usersController.users);
+route.put('/profile', usersController.users)
+route.post('/profile', usersController.profile)
 
-route.get('/products', productsController.showProducts);
+route.get('/products', userInfo, productsController.showProducts);
 route.post('/products', productsController.createProduct);
 
 

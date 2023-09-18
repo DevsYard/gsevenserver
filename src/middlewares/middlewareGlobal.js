@@ -18,53 +18,35 @@ exports.middlewareGlobal = async(req, res, next) => {
 
 exports.userSession = async (req, res, next) => {
 	try {
-		const username = req.body.username;
-		const userInfo = await AccountModel.findOne({ username }).exec();
-		const response = {
-			id: userInfo._id,
-			admin: userInfo.admin,
-			session: req.sessionID
-		};
-
-		console.log(response)
-		res.json({res: response});
+		if(req.sessionID) {
+			console.log("Passei no userSession:", req.sessionID)
+			res.username = req.username
+			next()
+		}
+		else{
+			console.log('Deu ruim.')
+			res.status(500).json({Erro: 'É necessatio estar logado'})
+			return
+		}
 	} catch (err) {
-		res.status(500).json({ Erro: 'iyrooh', message: err.message });
+		res.status(500).json({ Erro: 'iyr6qh', message: err.message });
 	}
-
-	next();
 };
 
-// exports.checkCsrfError = (err, next) => {
-// 	console.log('entrei pelo checkCsrfError');
-// 	if (err && err.code === 'EBADCSRFTOKEN') {
-// 		return res.send('Bad CSRF.').redirect('/signin');
-// 	}
-// 	console.log('passei pelo checkCsrfError');
-// 	next();
-// };
-
-// exports.checkTokenMiddleware = (req, res, next) => {
-// 	if (req.cookies.token) {
-// 		const token = req.cookies.token;
-// 	}
-// 	if (token) {
-// 		console.log(req);
-// 		const admin = req.body.admin;
-// 		admin ? res.redirect('/adminhome') : res.redirect('/userhome');
-// 		next();
-// 	} else {
-// 		res.redirect('/signin');
-// 	}
-// 	console.log('não achei nada pra continuar');
-// 	next();
-// };
+exports.userInfo = async (req, res, next) => {
+	try {
+		console.log("Passando pelo userInfo:", res.sessionID)
+	} catch(err) {
+		res.status(500).json({Erro: 'GMAQiz', message: err.message})
+	}
+	next()
+}
 
 exports.isAuthenticated = (req, res, next) => {
 	if (req.userId) {
 		next();
 	} else {
-		alert('Área logada!');
+		console.log('Área logada!');
 		res.status(401).json({ message: 'Não autorizado' });
 	}
 };
