@@ -16,7 +16,6 @@ mongoose
 		alert('Ocorreu um erro na conexão com o Banco de Dados', err)
 	);
 
-const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const cors = require('cors');
@@ -26,6 +25,7 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 
 const { middlewareGlobal } = require('./src/middlewares/middlewareGlobal');
+const session = require('express-session');
 
 app.use(helmet(
 	{
@@ -58,8 +58,8 @@ const config = session({
 		path: '/',
 		secure: false,
 		maxAge: 1000 * 60 * 60 * 24,
-		httpOnly: true,
-		sameSite: 'lax',
+		httpOnly: false,
+		sameSite: 'strict',
 	},
 });
 
