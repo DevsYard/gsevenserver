@@ -27,13 +27,13 @@ const jwt = require('jsonwebtoken');
 const { middlewareGlobal } = require('./src/middlewares/middlewareGlobal');
 const session = require('express-session');
 
-app.use(helmet(
-	{
-    	contentSecurityPolicy: false,
+app.use(
+	helmet({
+		contentSecurityPolicy: false,
 		crossOriginEmbedderPolicy: true,
-		referrerPolicy: {policy: ['origin', 'same-origin']}
-  	}
-));
+		referrerPolicy: { policy: ['origin', 'same-origin'] },
+	})
+);
 
 const url = 'http://localhost:3000'
 

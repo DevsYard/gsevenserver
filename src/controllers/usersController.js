@@ -5,12 +5,10 @@ exports.users = async (req, res) => {
 		const userId = { _id: req.body.userId }
 		const update = { bio: req.body.bio, birth: req.body.birth }
 		const user = await AccountModel.findOneAndUpdate(userId, update)
-		if(!user) {
-			res.status(400).json({msg: 'Não houve retorno'})
-		} 
-		else {
-			console.log(req.body.birth)
-			res.status(200).json({msg: 'Atualização realizada.'})
+		if (!user) {
+			res.status(400).json({ msg: 'Não houve retorno' });
+		} else {
+			res.status(200).json({ msg: 'Atualização realizada.' });
 		}
 	} catch (err) {
 		res.status(500).send(err.message);
@@ -29,3 +27,4 @@ exports.profile = async(req, res) => {
 		res.status(500).send(err.message)
 	}
 }
+
