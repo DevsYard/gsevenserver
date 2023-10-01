@@ -17,3 +17,14 @@ exports.showProducts = async (req, res) => {
 		res.status(500).send(error.message);
 	}
 };
+
+exports.productDetails = async (req, res) => {
+	try {
+		console.log(req.params);
+		const product = await ProductModel.findById({ _id: req.params.id });
+		console.log('Produto:', JSON.stringfy(product));
+		res.status(200).json(product);
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+};

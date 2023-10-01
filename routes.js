@@ -19,5 +19,7 @@ route.post('/favorites', favoritesController.favorites);
 route.get('/products', productsController.showProducts);
 route.post('/products', productsController.createProduct);
 
+route.get('/product/details/:id', productsController.productDetails);
+
 
 module.exports = route
