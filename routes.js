@@ -6,6 +6,9 @@ const usersController = require('./src/controllers/usersController');
 const productsController = require('./src/controllers/productsController');
 const favoritesController = require('./src/controllers/favoritesController');
 const { userSession, userInfo } = require('./src/middlewares/middlewareGlobal');
+const {
+	userAdminConfirmation,
+} = require('./src/middlewares/middlewareDeleteProd');
 
 route.post('/signup', signupController.signup);
 
@@ -18,6 +21,11 @@ route.post('/favorites', favoritesController.favorites);
 
 route.get('/products', productsController.showProducts);
 route.post('/products', productsController.createProduct);
+route.delete(
+	'/products',
+	userAdminConfirmation,
+	productsController.deleteProduct
+); 
 
 route.get('/product/details/:id', productsController.productDetails);
 
