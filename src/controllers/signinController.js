@@ -5,7 +5,7 @@ require('dotenv').config();
 
 exports.signin = async (req, res) => {
 	try {
-		const username = req.body.username;
+		const username = req.body.username;	
 		const user = await AccountModel.findOne({ username }).exec();
 
 		if (!user) {

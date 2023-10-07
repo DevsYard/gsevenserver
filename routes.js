@@ -27,7 +27,10 @@ route.delete(
 	productsController.deleteProduct
 ); 
 
+
+route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
 
 
 module.exports = route
+	
