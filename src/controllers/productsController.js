@@ -42,7 +42,38 @@ exports.deleteProduct = async (req, res) => {
 exports.getProduct = async (req, res) => {
 	try {
 		const product = await ProductModel.findById({ _id: req.body.id });
-		product ? res.status(200).json(product) : res.json({ msg: 'deu ruim' });
+		product
+			? res.status(200).json(product)
+			: res.json({
+					error: 'Bpk1RN',
+					msg: 'Não foi possível encontrar o produto.',
+			  });
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+};
+
+exports.editProduct = async (req, res) => {
+	try {
+		if (req.body.session.admin) {
+			const changes = await ProductModel.findByIdAndUpdate(req.params.id, {
+				productName: req.body.productName,
+				description: req.body.description,
+			});
+			changes
+				? res.status(200).json({ msg: 'As mudanças foram salvas.' })
+				: res.json({
+						error: 'pxsDUS',
+						msg: 'Não foi possível realizar a alteração.',
+				  });
+		} else {
+			res
+				.status(401)
+				.json({
+					error: '0Xp8UT',
+					msg: 'Você precisa estar logado como admin.',
+				});
+		}
 	} catch (error) {
 		res.status(500).send(error.message);
 	}

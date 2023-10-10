@@ -3,7 +3,11 @@ const AccountModel = require('../models/AccountModel');
 exports.users = async (req, res) => {
 	try {
 		const userId = { _id: req.body.userId }
-		const update = { bio: req.body.bio, birth: req.body.birth }
+		const update = {
+			bio: req.body.bio,
+			birth: req.body.birth,
+			name: req.body.name,
+		};
 		const user = await AccountModel.findOneAndUpdate(userId, update)
 		if (!user) {
 			res.status(400).json({ msg: 'Não houve retorno' });

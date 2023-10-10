@@ -28,7 +28,15 @@ exports.signin = async (req, res) => {
 				expiresIn: 300,
 			});
 			
-			res.status(200).json({ userId: user._id, auth: true, token: token, admin: user.admin, bio: user.bio, birth: user.birth });
+			res.status(200).json({
+				userId: user._id,
+				auth: true,
+				name: user.name,
+				token: token,
+				admin: user.admin,
+				bio: user.bio,
+				birth: user.birth,
+			});
 		}
 	} catch (err) {
 		res.status(500).json({ erro: err.message });
