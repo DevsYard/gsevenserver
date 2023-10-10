@@ -10,7 +10,8 @@ exports.signup = async (req, res) => {
 			password: hash,
 			admin: req.body.admin,
 			birth: '',
-			bio: ''
+			bio: '',
+			name: '',
 		};
 		const user = await AccountModel.findOne({username: req.body.username})
 		if(!user) {

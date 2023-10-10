@@ -4,8 +4,8 @@ const CreateProductSchema = new mongoose.Schema({
 	productName: { type: String, required: true },
 	description: { type: String },
 	price: { type: Number, required: true },
-	promo: { type: Boolean },
-	promoPrice: { type: Number },
+	promo: { type: Boolean, required: true },
+	promoPrice: { type: Number, required: true },
 	condition: { type: Number },
 	img: { type: String },
 });
