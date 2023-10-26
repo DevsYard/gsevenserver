@@ -9,6 +9,7 @@ const { userSession, userInfo } = require('./src/middlewares/middlewareGlobal');
 const {
 	userAdminConfirmation,
 } = require('./src/middlewares/middlewareDeleteProd');
+const { favVerify } = require('./src/middlewares/middlewareFav');
 
 route.post('/signup', signupController.signup);
 
@@ -17,7 +18,7 @@ route.post('/signin', userSession, signinController.signin);
 route.put('/profile', userInfo, usersController.users);
 route.post('/profile', userInfo, usersController.profile);
 
-route.post('/favorites', favoritesController.favorites);
+route.post('/favorites', favoritesController.createFavorites);
 
 route.get('/products', productsController.showProducts);
 route.post('/products', productsController.createProduct);
@@ -29,7 +30,7 @@ route.delete(
 
 route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
-route.put('/product/edit/:id', userInfo, productsController.editProduct);
+route.put('/product/edit/:id', productsController.editProduct);
 
 
 module.exports = route

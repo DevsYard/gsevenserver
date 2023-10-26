@@ -37,6 +37,7 @@ exports.signin = async (req, res) => {
 				bio: user.bio,
 				birth: user.birth,
 				avatar: user.avatar,
+				favorites: user.favorites,
 			});
 		}
 	} catch (err) {
