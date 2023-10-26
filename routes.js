@@ -17,7 +17,7 @@ route.post('/signin', userSession, signinController.signin);
 route.put('/profile', userInfo, usersController.users);
 route.post('/profile', userInfo, usersController.profile);
 
-route.post('/favorites', favoritesController.favorites);
+route.post('/favorites', /* userInfo, */ favoritesController.createFavorites);
 
 route.get('/products', productsController.showProducts);
 route.post('/products', productsController.createProduct);
@@ -29,7 +29,7 @@ route.delete(
 
 route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
-route.put('/product/edit/:id', userInfo, productsController.editProduct);
+route.put('/product/edit/:id', productsController.editProduct);
 
 
 module.exports = route
