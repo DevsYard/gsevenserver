@@ -60,6 +60,32 @@ exports.createFavorites = async (req, res) => {
 				res.status(200).json({ msg: 'Favorito retirado', item: updated });
 			}
 		}
+
+		const favProd = { productId: req.body.productId };
+		let updated = null;
+
+		if (user.favorites[0]._id) {
+			const favorite = await FavoritesModel.findById(user.favorites[0]);
+			let isFav = false;
+			for (let i = 0; i < favorite.favoriteProds.length; i++) {
+				if (favorite.favoriteProds[i].productId === favProd.productId) {
+					isFav = true;
+				}
+			}
+			if (!isFav) {
+				favorite.favoriteProds.push(favProd);
+			}
+			updated = await favorite.save();
+		} else {
+			const favorite = await FavoritesModel.create({ favoriteProds: favProd });
+			user.favorites.push(favorite);
+			await user.save();
+			return res.status(200).json({ msg: 'Referência criada', ref: favorite });
+		}
+
+		return res
+			.status(201)
+			.json({ msg: 'Seus favoritos foram atualizados.', favorites: updated });
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
