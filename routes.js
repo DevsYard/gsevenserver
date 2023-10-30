@@ -9,7 +9,6 @@ const { userSession, userInfo } = require('./src/middlewares/middlewareGlobal');
 const {
 	userAdminConfirmation,
 } = require('./src/middlewares/middlewareDeleteProd');
-const { favVerify } = require('./src/middlewares/middlewareFav');
 
 route.post('/signup', signupController.signup);
 
