@@ -17,6 +17,7 @@ route.post('/signin', userSession, signinController.signin);
 route.put('/profile', userInfo, usersController.users);
 route.post('/profile', userInfo, usersController.profile);
 
+route.post('/showfavorites', userInfo, favoritesController.getFavorites);
 route.post('/favorites', favoritesController.createFavorites);
 
 route.get('/products', productsController.showProducts);
