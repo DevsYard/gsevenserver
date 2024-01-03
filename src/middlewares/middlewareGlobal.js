@@ -21,7 +21,9 @@ exports.userSession = async (req, res, next) => {
 exports.userInfo = async (req, res, next) => {
 	try {
 		if (req.body.userId !== '') {
+			console.log('===================================');
 			console.log('Passando pelo userInfo:', req.body);
+			console.log('===================================');
 		} else {
 			res.status(200).json({ msg: 'Não autorizado.' });
 		}

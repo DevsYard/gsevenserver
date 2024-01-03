@@ -65,13 +65,14 @@ exports.getFavorites = async (req, res) => {
 	try {
 		const favorite = await FavoritesModel.findById(req.body.favorites[0]);
 		const favoriteProducts = [];
-
-		for (let i = 0; i < favorite.favoriteProds.length; i++) {
-			const product = await ProductModel.findById(
-				favorite.favoriteProds[i].productId
-			);
-			if (product) {
-				favoriteProducts.push(product);
+		if(favorite) {
+			for (let i = 0; i < favorite.favoriteProds.length; i++) {
+				const product = await ProductModel.findById(
+					favorite.favoriteProds[i].productId
+				);
+				if (product) {
+					favoriteProducts.push(product);
+				}
 			}
 		}
 		res

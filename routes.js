@@ -3,6 +3,7 @@ const route = express.Router()
 const signinController = require('./src/controllers/signinController');
 const signupController = require('./src/controllers/signupController');
 const usersController = require('./src/controllers/usersController');
+const cartController = require('./src/controllers/cartController');
 const productsController = require('./src/controllers/productsController');
 const favoritesController = require('./src/controllers/favoritesController');
 const { userSession, userInfo } = require('./src/middlewares/middlewareGlobal');
@@ -27,6 +28,8 @@ route.delete(
 	userAdminConfirmation,
 	productsController.deleteProduct
 );
+
+route.get('/cart', cartController.cartRegister);
 
 route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
