@@ -15,9 +15,24 @@ exports.cartRegister = async (req, res) => {
 			const newCart = await CartModel.create(req.body);
 			res
 				.status(200)
-				.json({ msg: 'Carrinho criado com sucesso.', cart: newCart });
+				.json({ msg: 'Carrinho iniciado', Items: { newCart } });
 		}
 	} catch (error) {
 		res.status(500).send({ error: error.message });
+
 	}
 };
+
+exports.cartView = async (req, res) => {
+	try {
+		console.log(req.body)
+		const existingCart = await CartModel.findOne({ userId: req.body.userId });
+		if(existingCart) {
+			res.status(200).send({ msg: 'Carrinho encontrado', cart: existingCart });
+		} else {
+			res.status(200).json({ msg: 'Não há nada no carrinho.' });
+		}
+	} catch (error) {
+		res.status(500).send({ error: error.message})
+	}
+}
