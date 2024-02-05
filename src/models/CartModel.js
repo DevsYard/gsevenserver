@@ -13,7 +13,7 @@ const CreateCartSchema = new mongoose.Schema({
 	unidades: { type: Number, required: true },
 	valorUnitario: { type: Number, required: true },
 	userId: { type: String, required: true },
-	valorTotal: { type: Number, required: true },
+	valorTotal: { type: Number, required: true },	
 });
 
 const CartModel = mongoose.model('UserCart', CreateCartSchema);

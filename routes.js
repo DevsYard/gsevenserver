@@ -29,7 +29,8 @@ route.delete(
 	productsController.deleteProduct
 );
 
-route.get('/cart', cartController.cartRegister);
+route.get('/cart', userSession, cartController.cartView);
+route.post('/cart', userSession, cartController.cartRegister);
 
 route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
