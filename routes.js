@@ -3,6 +3,7 @@ const route = express.Router()
 const signinController = require('./src/controllers/signinController');
 const signupController = require('./src/controllers/signupController');
 const usersController = require('./src/controllers/usersController');
+const cartController = require('./src/controllers/cartController');
 const productsController = require('./src/controllers/productsController');
 const favoritesController = require('./src/controllers/favoritesController');
 const { userSession, userInfo } = require('./src/middlewares/middlewareGlobal');
@@ -17,7 +18,8 @@ route.post('/signin', userSession, signinController.signin);
 route.put('/profile', userInfo, usersController.users);
 route.post('/profile', userInfo, usersController.profile);
 
-route.post('/favorites', favoritesController.favorites);
+route.post('/showfavorites', userInfo, favoritesController.getFavorites);
+route.post('/favorites', favoritesController.createFavorites);
 
 route.get('/products', userInfo, productsController.showProducts);
 route.post('/products', productsController.createProduct);
@@ -27,9 +29,12 @@ route.delete(
 	productsController.deleteProduct
 );
 
+route.get('/cart', userSession, cartController.cartView);
+route.post('/cart', userSession, cartController.cartRegister);
+
 route.get('/product', productsController.getProduct);
 route.get('/product/details/:id', productsController.productDetails);
-route.put('/product/edit/:id', userInfo, productsController.editProduct);
+route.put('/product/edit/:id', productsController.editProduct);
 
 
 module.exports = route

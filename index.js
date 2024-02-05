@@ -58,7 +58,7 @@ const config = session({
 		path: '/',
 		secure: false,
 		maxAge: 1000 * 60 * 60 * 24,
-		httpOnly: false,
+		httpOnly: true,
 		sameSite: 'strict',
 	},
 });
@@ -73,7 +73,7 @@ app.use(routes);
 app.on('done', () => {
 	app.listen(3001, () => {
 		console.log(
-			'Rodando em https://localhost:3001'
+			'Rodando em http://localhost:3001'
 		);
 	});
 });

@@ -3,7 +3,9 @@ const ProductModel = require('../models/ProductModel');
 exports.createProduct = async (req, res) => {
 	try {
 		const newProduct = await ProductModel.create(req.body);
-		res.status(201).send(newProduct);
+		res
+			.status(201)
+			.send({ msg: 'Produto criado com sucesso.', produto: newProduct });
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -31,8 +33,9 @@ exports.deleteProduct = async (req, res) => {
 	try {
 		const productId = req.body.productId;
 		const product = await ProductModel.deleteOne({ _id: productId });
+		console.log('Id do usuário:', req.body.userId);
+		console.log('Id do Produto:', productId);
 		console.log('Produto apagado:', product);
-		console.log(res);
 		res.status(200).send({ msg: 'O produto selecionado foi apagado.' });
 	} catch (error) {
 		res.status(500).send(error.message);
@@ -59,6 +62,11 @@ exports.editProduct = async (req, res) => {
 			const changes = await ProductModel.findByIdAndUpdate(req.params.id, {
 				productName: req.body.productName,
 				description: req.body.description,
+				price: req.body.price,
+				promo: req.body.promo,
+				promoPrice: req.body.promoPrice,
+				condition: req.body.condition,
+				img: req.body.img,
 			});
 			changes
 				? res.status(200).json({ msg: 'As mudanças foram salvas.' })
@@ -67,12 +75,10 @@ exports.editProduct = async (req, res) => {
 						msg: 'Não foi possível realizar a alteração.',
 				  });
 		} else {
-			res
-				.status(401)
-				.json({
-					error: '0Xp8UT',
-					msg: 'Você precisa estar logado como admin.',
-				});
+			res.status(401).json({
+				error: '0Xp8UT',
+				msg: 'Você precisa estar logado como admin.',
+			});
 		}
 	} catch (error) {
 		res.status(500).send(error.message);

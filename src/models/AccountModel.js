@@ -7,6 +7,13 @@ const CreateAccountSchema = new mongoose.Schema({
 	birth: { type: Date, required: false },
 	bio: { type: String, required: false },
 	name: { type: String, required: false },
+	avatar: { type: String, required: false },
+	favorites: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Favorites',
+		},
+	],
 });
 
 const AccountModel = mongoose.model('UsersAccount', CreateAccountSchema);

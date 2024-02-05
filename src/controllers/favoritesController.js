@@ -1,20 +1,84 @@
 const FavoritesModel = require('../models/FavoritesModel');
-const UserModel = require('../models/AccountModel');
 const AccountModel = require('../models/AccountModel');
+const ProductModel = require('../models/ProductModel');
 
-exports.favorites = async (req, res) => {
+exports.createFavorites = async (req, res) => {
 	try {
-		console.log(req.body);
-		const user = await AccountModel.findById({ _id: req.body.userId });
-		const favorites = await FavoritesModel.findById({
-			userId: req.body.userId,
-		});
-		if (favorites && user._id === req.body.userId) {
-			console.log('Favoritos:', favorites);
+		const user = await AccountModel.findById(req.body.userId);
+		const favProd = { productId: req.body.productId };
+		if (!user) {
+			res.status(404).send('Usuário não encontrado');
+			return;
+		}
+		let updated = null;
+		if (req.body.fav) {
+			console.log(user.favorites[0]);
+
+			if (user.favorites[0] !== undefined) {
+				const favorite = await FavoritesModel.findById(user.favorites[0]);
+				let isFav = false;
+				for (let i = 0; i < favorite.favoriteProds.length; i++) {
+					if (favorite.favoriteProds[i].productId === favProd.productId) {
+						isFav = true;
+					}
+				}
+				if (!isFav) {
+					favorite.favoriteProds.push(favProd);
+				}
+				updated = await favorite.save();
+			} else {
+				const favorite = await FavoritesModel.create({
+					favoriteProds: favProd,
+				});
+				user.favorites.push(favorite);
+				updated = await user.save();
+				res.status(200).json({ msg: 'Referência criada', ref: updated });
+				return;
+			}
+
+			res
+				.status(201)
+				.json({ msg: 'Seus favoritos foram atualizados.', favorites: updated });
+			return;
 		} else {
-			res.status(201).send({ favorites });
+			const favProd = { productId: req.body.productId };
+
+			if (user.favorites[0]._id) {
+				const favorite = await FavoritesModel.findById(user.favorites[0]);
+				for (let i = 0; i < favorite.favoriteProds.length; i++) {
+					if (favorite.favoriteProds[i].productId === favProd.productId) {
+						favorite.favoriteProds.splice(i, 1);
+						break;
+					}
+				}
+				updated = await favorite.save();
+				res.status(200).json({ msg: 'Favorito retirado', item: updated });
+				return;
+			}
 		}
 	} catch (err) {
-		res.status(500).send(err.message);
+		res.status(500).json({ error: err.message });
+	}
+};
+
+exports.getFavorites = async (req, res) => {
+	try {
+		const favorite = await FavoritesModel.findById(req.body.favorites[0]);
+		const favoriteProducts = [];
+		if(favorite) {
+			for (let i = 0; i < favorite.favoriteProds.length; i++) {
+				const product = await ProductModel.findById(
+					favorite.favoriteProds[i].productId
+				);
+				if (product) {
+					favoriteProducts.push(product);
+				}
+			}
+		}
+		res
+			.status(200)
+			.json({ msg: 'lista atualizada', favorites: favoriteProducts });
+	} catch (err) {
+		res.status(500).json({ error: err.message });
 	}
 };

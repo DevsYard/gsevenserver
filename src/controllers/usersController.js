@@ -7,6 +7,7 @@ exports.users = async (req, res) => {
 			bio: req.body.bio,
 			birth: req.body.birth,
 			name: req.body.name,
+			avatar: req.body.avatar,
 		};
 		const user = await AccountModel.findOneAndUpdate(userId, update)
 		if (!user) {
