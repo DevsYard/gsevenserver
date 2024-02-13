@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 exports.userSession = async (req, res, next) => {
 	try {
 		if (req.sessionID) {
-			res.username = req.username;
+			console.log('Session ID: ', req.sessionID);
 			next();
 		} else {
 			res
 				.status(500)
-				.json({ Erro: '4T1ov6', message: 'É necessatio estar logado' });
+				.json({ Erro: '4T1ov6', message: 'É necessario estar logado' });
 			return;
 		}
 	} catch (err) {

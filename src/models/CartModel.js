@@ -10,6 +10,7 @@ const CreateCartSchema = new mongoose.Schema({
 		ref: 'Product',
 		required: true,
 	},
+	productName: { type: String, required: true},
 	unidades: { type: Number, required: true },
 	valorUnitario: { type: Number, required: true },
 	userId: { type: String, required: true },
