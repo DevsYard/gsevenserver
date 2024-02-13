@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node index.js",
 		"devStart": "nodemon index.js",
-		"vercel-build": "yarn mongoose migrate deploy"
+		"vercel-build": "npx mongoose migrate deploy"
 	},
 	"author": "gothmate",
 	"license": "ISC",
